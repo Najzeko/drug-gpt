@@ -1,20 +1,17 @@
 import streamlit as st
-from openai import OpenAI
+from agent import generate_stream, generate_response
 
 st.title("Drug-GPT")
-
-# Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
-# Set a default model
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    response = generate_response(st.session_state.messages)
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    
 
 # Display chat messages from history on app rerun
+# if len(st.session_state.messages) > 1:
 for message in st.session_state.messages:
     if message["role"] == "assistant":     
         with st.chat_message(name="assistant", avatar="👨‍⚕️"):
@@ -33,13 +30,6 @@ if prompt := st.chat_input("Message Drug-GPT"):
 
 # Display assistant response in chat message container
     with st.chat_message(name="assistant", avatar="👨‍⚕️"):
-        stream = client.chat.completions.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+        stream = generate_stream(st.session_state.messages)
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
