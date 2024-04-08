@@ -7,7 +7,10 @@ LINK TO DEMO: https://drug-gpt-v1.streamlit.app/
 1. Install requirements with pip\
 `$ pip install -r requirements.txt`
 
-2. Start streamlit\
+2. Create `.streamlit/secrets.toml` and add\
+`OPENAI_API_KEY="<your key here>"`
+
+4. Start streamlit\
 `$ streamlit run main.py`
 
-3. Navigate to `http://localhost:8501/` in browser of choice to view webpage (I used Edge, for reference)
+5. Navigate to `http://localhost:8501/` in browser of choice to view webpage (I used Edge, for reference)
