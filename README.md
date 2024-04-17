@@ -1,6 +1,6 @@
 # Drug-GPT
 Drug-GPT is an LLM-based chatbot designed to provide general information on drugs\
-LINK TO DEMO: https://drug-gpt-v1.streamlit.app/
+LINK TO DEMO: *redacted*
 
 ## Instructions to build and run locally
 
